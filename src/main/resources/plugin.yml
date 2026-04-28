@@ -4,3 +4,14 @@ version: '${version}'
 main: click.seichi.srvStopper.SrvStopper
 api-version: '1.18'
 load: POSTWORLD
+
+commands:
+  srvstopper:
+    description: SrvStopperの管理コマンド
+    usage: /<command> <version|config <show|reload>>
+    permission: srvstopper.admin
+
+permissions:
+  srvstopper.admin:
+    description: SrvStopperの管理コマンドを使用できる
+    default: op
