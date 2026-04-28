@@ -9,10 +9,29 @@ import java.util.List;
 
 public final class SrvStopper extends JavaPlugin implements Listener {
 
+    private PluginConfig pluginConfig;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        pluginConfig = PluginConfig.from(getConfig());
         getServer().getPluginManager().registerEvents(this, this);
+
+        var handler = new SrvStopperCommand(this);
+        var cmd = getCommand("srvstopper");
+        if (cmd != null) {
+            cmd.setExecutor(handler);
+            cmd.setTabCompleter(handler);
+        }
+    }
+
+    public void reloadPluginConfig() {
+        reloadConfig();
+        pluginConfig = PluginConfig.from(getConfig());
+    }
+
+    public PluginConfig getPluginConfig() {
+        return pluginConfig;
     }
 
     @EventHandler
@@ -22,8 +41,7 @@ public final class SrvStopper extends JavaPlugin implements Listener {
             return;
         }
 
-        List<String> requiredPlugins = getConfig().getStringList("required-plugins");
-        List<String> missingPlugins = requiredPlugins.stream()
+        List<String> missingPlugins = pluginConfig.getRequiredPlugins().stream()
                 .filter(name -> {
                     var plugin = getServer().getPluginManager().getPlugin(name);
                     return plugin == null || !plugin.isEnabled();
@@ -35,10 +53,11 @@ public final class SrvStopper extends JavaPlugin implements Listener {
             getLogger().info("必須プラグインがすべて読み込まれています。");
         } else {
             getLogger().warning("以下の必須プラグインが読み込まれていません: " + String.join(", ", missingPlugins));
-            if (getConfig().getBoolean("force-stop", false)) {
+            if (pluginConfig.isForceStop()) {
                 getLogger().severe("サーバを停止します。");
                 getServer().shutdown();
             }
         }
     }
+
 }
