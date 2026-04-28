@@ -1,0 +1,3 @@
+force-stop: true
+required-plugins:
+  - SrvStopper

@@ -1,0 +1,6 @@
+name: SrvStopper
+version: '${version}'
+
+main: click.seichi.srvStopper.SrvStopper
+api-version: '1.18'
+load: POSTWORLD
