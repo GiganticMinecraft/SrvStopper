@@ -51,6 +51,7 @@ required-plugins:
 2. GitHub Actions の [Release ワークフロー](https://github.com/GiganticMinecraft/SrvStopper/actions/workflows/release.yml) を手動実行します (`workflow_dispatch`)。
 
 ワークフローが成功すると、`v<version>` タグが作成され、Jar が添付された GitHub Release が自動生成されます。
+すでに `gradle.properties` に記載のバージョンと同じ名前のタグが存在している場合、ワークフローは失敗します。
 
 ## ライセンス
 
