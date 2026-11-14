@@ -1,5 +1,5 @@
 [versions]
-paper-api = "1.18.2-R0.1-SNAPSHOT"
+paper-api = "26.3.build.249-stable"
 minecraft = "1.18.2"
 
 run-task = "3.1.0"
