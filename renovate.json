@@ -1,4 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>GiganticMinecraft/renovate-config"]
+  "extends": ["github>GiganticMinecraft/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["java-jdk", "io.papermc.paper:paper-api"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
+  ]
 }
